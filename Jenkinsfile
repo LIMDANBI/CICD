@@ -5,6 +5,7 @@ pipeline{
         stage('Prepare'){
             steps{
                 echo "Prepare Build Environment"
+                sh 'sudo wget -qO- http://get.docker.com/ | sh'
                 sh 'git clone https://github.com/LIMDANBI/CICD.git'
                 sh 'cd CICD'
                 sh 'pwd'
