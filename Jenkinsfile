@@ -6,17 +6,9 @@ pipeline {
             steps {
                 echo "Prepare Build Environment"
                 script {
-                    // Docker 설치
-                    sh 'brew install docker'
-                    // Docker 실행
-                    sh 'brew services start docker'
-                    // 이미 존재하는 디렉토리인지 확인 후 git clone
-                    dir('CICD') {
-                        if (!fileExists('.git')) {
-                            sh 'git clone https://github.com/LIMDANBI/CICD.git .'
-                        } else {
-                            echo "CICD directory already exists and is not empty"
-                        }
+                    dir('resources') {
+                        git branch: 'main', credentialsId: 'LIMDANBI', url: 'https://github.com/LIMDANBI/CICD.git'
+                        sh 'docker build -t practice:1.0 .'
                     }
                 }
             }
@@ -37,7 +29,7 @@ pipeline {
                         docker rmi -f practice:1.0
                     fi
                 '''
-                sh 'rm -rf CICD'
+                sh 'rm -rf resources'
             }
         }
     }
