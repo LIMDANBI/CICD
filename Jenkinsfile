@@ -5,10 +5,18 @@ pipeline {
         stage('Prepare') {
             steps {
                 echo "Prepare Build Environment"
-                sh 'wget -qO- http://get.docker.com/ | sh'
-                sh 'git clone https://github.com/LIMDANBI/CICD.git'
-                sh 'cd CICD && pwd'
-                sh 'docker build -t practice:1.0 .'
+                script {
+                    // Docker 설치
+                    sh 'apt-get update && apt-get install -y docker.io'
+                    // 이미 존재하는 디렉토리인지 확인 후 git clone
+                    dir('CICD') {
+                        if (!fileExists('.git')) {
+                            sh 'git clone https://github.com/LIMDANBI/CICD.git .'
+                        } else {
+                            echo "CICD directory already exists and is not empty"
+                        }
+                    }
+                }
             }
         }
 
