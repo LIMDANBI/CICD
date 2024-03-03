@@ -5,12 +5,16 @@ pipeline{
         stage('Prepare'){
             steps{
                 echo "Prepare Build Environment"
-                sh 'mkdir resources'
-                dir('resources') {
-                    git branch: 'main', credentialsId: 'LIMDANBI', url: 'https://github.com/LIMDANBI/CICD.git'
-                    sh 'pwd'
-                    sh 'docker build -t practice:1.0 .'
-                }
+                sh 'git clone https://github.com/LIMDANBI/CICD.git'
+                sh 'cd CICD'
+                sh 'pwd'
+                sh 'docker build -t practice:1.0 .'
+                // sh 'mkdir resources'
+                // dir('resources') {
+                //     git branch: 'main', credentialsId: 'LIMDANBI', url: 'https://github.com/LIMDANBI/CICD.git'
+                //     sh 'pwd'
+                //     sh 'docker build -t practice:1.0 .'
+                // }
             }
         }
 
