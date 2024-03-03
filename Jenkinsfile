@@ -7,7 +7,9 @@ pipeline {
                 echo "Prepare Build Environment"
                 script {
                     // Docker 설치
-                    sh 'apt-get update && apt-get install -y docker.io'
+                    sh 'brew install docker'
+                    // Docker 실행
+                    sh 'brew services start docker'
                     // 이미 존재하는 디렉토리인지 확인 후 git clone
                     dir('CICD') {
                         if (!fileExists('.git')) {
