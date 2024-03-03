@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     stages{
-        stages('Prepare'){
+        stage('Prepare'){
             echo "Prepare Build Environment"
             sh 'mkdir resources'
             dir('resources') {
