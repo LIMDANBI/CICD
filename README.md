@@ -1,2 +1,2 @@
 # CICD
-CI CD 환경 구축 실습
+Jenkins와 Docker 사용하여 빌드하기
