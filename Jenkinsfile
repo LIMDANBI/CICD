@@ -8,6 +8,7 @@ pipeline {
                 script {
                     dir('resources') {
                         git branch: 'main', credentialsId: 'LIMDANBI', url: 'https://github.com/LIMDANBI/CICD.git'
+                        sh 'pwd'
                         sh 'docker build -t practice:1.0 .'
                     }
                 }
