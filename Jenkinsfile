@@ -9,7 +9,10 @@ pipeline {
                     dir('resources') {
                         git branch: 'main', credentialsId: 'LIMDANBI', url: 'https://github.com/LIMDANBI/CICD.git'
                         sh 'pwd'
-                        sh 'docker build -t practice:1.0 .'
+                        
+                        // docker 설치
+                        sh 'apt update'
+                        sh 'apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin'
                     }
                 }
             }
@@ -18,6 +21,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Start Docker daily build"
+                sh 'docker build -t practice:1.0 .'
                 sh 'docker run --rm --name buildpractice -i practice:1.0 ./build_docker.sh'
             }
         }
